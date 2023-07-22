@@ -15,6 +15,7 @@
 use support\Request;
 
 return [
+    'name' => 'Webman Study',
     'debug' => true,
     'error_reporting' => E_ALL,
     'default_timezone' => 'Asia/Shanghai',
