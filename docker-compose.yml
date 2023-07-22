@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    image: ${COMPOSE_PROJECT_NAME}:20230722
+    container_name: ${CONTAINER_NAME_PREFIX}
+    hostname: ${CONTAINER_HOST_PREFIX}
+    volumes:
+      - ${HOST_PROJECT_DIRECTORY}:/var/www/html/application
+      - ./docker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./docker/php.ini:/etc/php/8.2/cli/conf.d/99-my.ini
+      - ./docker/root.zsh_history:/root/.zsh_history
+      - ./docker/user.zsh_history:/home/user/.zsh_history
+    networks:
+      - dockernet
+    ports:
+      - ${CONTAINER_PORT_APP:-8787}:8787
+    working_dir: /var/www/html/application
+    command: >
+      bash -c "cron start;
+      supervisord -c /etc/supervisor/conf.d/supervisord.conf;
+      php /var/www/html/application/start.php start"
+    restart: unless-stopped
+
+networks:
+  dockernet:
+    driver: bridge
+    name: ${CONTAINER_SHARING_NETWORK_NAME}
