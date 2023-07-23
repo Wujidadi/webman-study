@@ -8,6 +8,7 @@ class IndexController
 {
     public function index(Request $request)
     {
+        return response($request->action);
         static $readme;
         if (!$readme) {
             $readme = file_get_contents(base_path('README.md'));
