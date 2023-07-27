@@ -514,3 +514,11 @@ function cpu_count(): int
     }
     return $count > 0 ? $count : 4;
 }
+
+function env($key, $default = null) {
+    static $env_config = [];
+    if (!$env_config) {
+        $env_config = include config_path() . '/.env.php';
+    }
+    return $env_config[$key] ?? $default;
+}

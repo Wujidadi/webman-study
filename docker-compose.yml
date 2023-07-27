@@ -9,11 +9,11 @@ services:
     container_name: ${CONTAINER_NAME_PREFIX}
     hostname: ${CONTAINER_HOST_PREFIX}
     volumes:
-      - ${HOST_PROJECT_DIRECTORY}:/var/www/html/application
-      - ./docker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-      - ./docker/php.ini:/etc/php/8.2/cli/conf.d/99-my.ini
-      - ./docker/root.zsh_history:/root/.zsh_history
-      - ./docker/user.zsh_history:/home/user/.zsh_history
+      - ${HOST_PROJECT_DIRECTORY}:/var/www/html/application:rw
+      - ./docker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+      - ./docker/php.ini:/etc/php/8.2/cli/conf.d/99-my.ini:ro
+      - ./docker/root.zsh_history:/root/.zsh_history:rw
+      - ./docker/user.zsh_history:/home/user/.zsh_history:rw
     networks:
       - dockernet
     ports:

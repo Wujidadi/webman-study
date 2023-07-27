@@ -14,8 +14,17 @@
 
 use Webman\Route;
 
+Route::group('/api', function () {
+    Route::any('', function ($request) {
+        return redirect('/api/');
+    });
+    Route::any('/{path:.*}', function ($request, $path) {
+        return 'Here is the domain for API, but the path is ' . $path;
+    });
+});
 
+Route::any('/{path:.*}', function ($request, $path) {
+    return response($path . ', ' . $request->input('id'));
+});
 
-
-
-
+Route::disableDefaultRoute();
