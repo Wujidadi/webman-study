@@ -515,10 +515,79 @@ function cpu_count(): int
     return $count > 0 ? $count : 4;
 }
 
-function env($key, $default = null) {
+function env(string $key, string|int|float $default = null): string|int|float
+{
     static $env_config = [];
     if (!$env_config) {
         $env_config = include config_path() . '/.env.php';
     }
     return $env_config[$key] ?? $default;
+}
+
+if (!function_exists('vite')) {
+    function vite(string | array $entrypoints, string|null $buildDirectory = 'dist'): string
+    {
+        $style_pattern = '/\.(css|less|sass|scss|styl|stylus|pcss|postcss)$/';
+
+        if (!is_array($entrypoints)) {
+            $entrypoints = [$entrypoints];
+        }
+
+        $html = '';
+        if (is_file(public_path('hot'))) {
+            $host = rtrim(file_get_contents(public_path('hot')));
+            array_unshift($entrypoints, '@vite/client');
+            foreach ($entrypoints as $import) {
+                if (preg_match($style_pattern, $import)) {
+                    $html .= '<link rel="stylesheet" href="' . $host . '/' . $import . '" />';
+                } else {
+                    $html .= '<script type="module" src="' . $host . '/' . $import . '"></script>';
+                }
+            }
+        } else {
+            $manifestPath = public_path($buildDirectory . DIRECTORY_SEPARATOR . 'manifest.json');
+            if (is_file($manifestPath)) {
+                $manifest = json_decode(file_get_contents($manifestPath), true);
+                $tags = [];
+                $preloads = [];
+                foreach ($entrypoints as $entrypoint) {
+                    if (isset($manifest[$entrypoint])) {
+                        $chunk = $manifest[$entrypoint];
+                        $preloads[] = $chunk['file'];
+                        $tags[] = $chunk['file'];
+
+                        foreach ($chunk['imports'] ?? [] as $import) {
+                            $preloads[] = $manifest[$import]['file'];
+                            foreach ($manifest[$import]['css'] ?? [] as $css) {
+                                $preloads[] = $css;
+                                $tags[] = $css;
+                            }
+                        }
+
+                        foreach ($chunk['css'] ?? [] as $css) {
+                            $preloads[] = $css;
+                            $tags[] = $css;
+                        }
+                    }
+                }
+                uasort($preloads, fn ($a, $b) => (preg_match($style_pattern, $a)) ? -1 : 1);
+                uasort($tags, fn ($a, $b) => (preg_match($style_pattern, $a)) ? -1 : 1);
+                foreach ($preloads as $preload) {
+                    if (preg_match($style_pattern, $preload)) {
+                        $html .= '<link rel="preload" as="style" href="' . ('/' . $buildDirectory . '/' . $preload) . '" />';
+                    } else {
+                        $html .= '<link rel="modulepreload" as="script" href="' . ('/' . $buildDirectory . '/' . $preload) . '" />';
+                    }
+                }
+                foreach ($tags as $tag) {
+                    if (preg_match($style_pattern, $tag)) {
+                        $html .= '<link rel="stylesheet" href="' . ('/' . $buildDirectory . '/' . $tag) . '" />';
+                    } else {
+                        $html .= '<script type="module" src="' . ('/' . $buildDirectory . '/' . $tag) . '"></script>';
+                    }
+                }
+            }
+        }
+        return $html;
+    }
 }

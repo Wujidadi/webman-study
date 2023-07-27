@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 /docker/*.zsh_history
 /tests/tmp
 /config/.env.php
+/public/dist
