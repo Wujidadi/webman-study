@@ -74,3 +74,6 @@ return [
 ];
 ```
 
+## Vite `npm run dev` 問題
+
+由於沒有像 Laravel Mix 或 Laravel Vite 那樣整合，執行 `npm run dev` 有入口層級問題 (必須要從根目錄 `index.html` 進入)，暫時只能用 `npm run build`，無法享受 Vite 的 hot reload。

@@ -15,7 +15,7 @@ services:
       - ./docker/root.zsh_history:/root/.zsh_history:rw
       - ./docker/user.zsh_history:/home/user/.zsh_history:rw
     networks:
-      - dockernet
+      - docker_net
     ports:
       - ${CONTAINER_PORT_APP:-8787}:8787
     working_dir: /var/www/html/application
@@ -26,6 +26,6 @@ services:
     restart: unless-stopped
 
 networks:
-  dockernet:
+  docker_net:
     driver: bridge
     name: ${CONTAINER_SHARING_NETWORK_NAME}

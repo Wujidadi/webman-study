@@ -4,23 +4,23 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig(({ command, mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
 
-    const outputFileName = (fileType) => {
+    const outputFileName = (fileType, withHash = true) => {
         const isProduction = env.APP_ENV === 'production';
         switch (fileType) {
             case 'asset':
-                return isProduction ? '[name].css' : '[name].[hash].css';
+                return (isProduction && withHash) ? '[name].css' : '[name].[hash].css';
             case 'chunk':
-                return isProduction ? 'chunk-[name].js' : 'chunk-[name].[hash].js';
+                return (isProduction && withHash) ? 'chunk-[name].js' : 'chunk-[name].[hash].js';
             case 'entry':
             default:
-                return isProduction ? '[name].js' : '[name].[hash].js';
+                return (isProduction && withHash) ? '[name].js' : '[name].[hash].js';
         }
     };
 
     return {
         server: {
             host: '0.0.0.0',
-            port: 8788,
+            port: 5173,
         },
         plugins: [
             vue(),
