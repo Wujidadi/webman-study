@@ -5,7 +5,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile
-    image: ${COMPOSE_PROJECT_NAME}:20230722
+    image: ${COMPOSE_PROJECT_NAME}:${BUILD_LABEL}
     container_name: ${CONTAINER_NAME_PREFIX}
     hostname: ${CONTAINER_HOST_PREFIX}
     volumes:
