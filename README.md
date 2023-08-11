@@ -22,6 +22,10 @@ docker-compose up -d
 
 ## 注意事項
 
+### Editor Config
+
+建議引入 `.editorconfig` 以規範專案格式
+
 ### License
 
 框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除
