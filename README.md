@@ -2,15 +2,17 @@
 
 PHP [Webman 框架](https://github.com/walkor/webman)學習與研究專案。
 
-## Quick Start with Docker
+## 初始化
 
 ```bash
-# 複製環境設定檔，並指定必須的專案參數，尤其是 Docker 的 HOST_PROJECT_DIRECTORY
+# 複製環境設定檔，並設定必須的專案參數，尤其是 Docker 的 HOST_PROJECT_DIRECTORY
 cp .env.example .env
-
-# 複製專案設定檔，並指定必須的專案參數
 cp ./config/.env.php.example.php ./config/.env.php
+```
 
+若專案在 Docker 容器內運行，還須執行以下步驟：
+
+```bash
 # 預先建立 Docker 主程式容器中的 Zsh 歷史紀錄檔（若不須保留 Zsh 歷史紀錄可忽略此步驟）
 touch ./docker/{root,user}.zsh_history
 
@@ -18,9 +20,15 @@ touch ./docker/{root,user}.zsh_history
 docker-compose up -d
 ```
 
-## 關於 License 的注意事項
+## 注意事項
 
-* 框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除
+### License
+
+框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除
+
+### 時區
+
+可在 `config/app.php` 的 `default_timezone` 修改
 
 ## `.env` 與設定的問題
 
