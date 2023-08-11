@@ -24,26 +24,27 @@ docker-compose up -d
 
 ### Editor Config
 
-建議引入 `.editorconfig` 以規範專案格式
+建議引入 `.editorconfig` 以規範專案格式。
 
 ### License
 
-框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除
+框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除。
 
 ### 時區
 
-可在 `config/app.php` 的 `default_timezone` 修改
+可在 `config/app.php` 的 `default_timezone` 修改。
 
 ## `.env` 與設定的問題
 
-官方從 [1.1.2 版](https://github.com/walkor/webman/releases/tag/v1.1.2)起取消了直接在 `.env` 設定參數的作法 ([參考討論](https://www.workerman.net/q/7534))，但作者仍提出了[替代方案](https://www.workerman.net/q/7564)
-> 主要是增加了 `config/.env.php` 檔案，並在 `support/helpers.php` 中加入 `env` 輔助函數
+官方從 [1.1.2 版](https://github.com/walkor/webman/releases/tag/v1.1.2)起取消了直接在 `.env` 設定參數的作法 ([參考討論](https://www.workerman.net/q/7534))，但作者仍提出了[替代方案](https://www.workerman.net/q/7564)。
+
+> 主要是增加了 `config/.env.php` 檔案，並在 `support/helpers.php` 中加入 `env` 輔助函數。
 
 以下為替代方案相關檔案的範例：
 
 ### config/.env.php
 
-作者的方案並未加上 `.php` 副檔名，這裡加上以便 IDE 識別
+作者的方案並未加上 `.php` 副檔名，這裡加上以便 IDE 識別：
 
 ```php
 <?php
@@ -56,7 +57,7 @@ return [
 
 ### support/helpers.php
 
-作者原方案 `.env` 同樣未加上 `.php` 副檔名，這裡也加上了
+作者原方案 `.env` 同樣未加上 `.php` 副檔名，這裡也加上了：
 
 ```php
 <?php
@@ -92,13 +93,13 @@ return [
 ];
 ```
 
-> 須注意如此添加的 `env` 函數，係從 `config/.env.php` 取得設定值，而非 `.env`
+> 須注意如此添加的 `env` 函數，係從 `config/.env.php` 取得設定值，而非 `.env`。
 
 ## Vite
 
-整合了 [Laravel Vite](https://www.npmjs.com/package/laravel-vite-plugin)；若使用 Docker 容器，須將 Vite port 暴露出來，且設定內外一致的 port，即可由主程式 port 訪問 Vite 編譯後的前端資源
+整合了 [Laravel Vite](https://www.npmjs.com/package/laravel-vite-plugin)；若使用 Docker 容器，須將 Vite port 暴露出來，且設定內外一致的 port，即可由主程式 port 訪問 Vite 編譯後的前端資源。
 
-> Vite port (即 Docker 容器內部 port) 設定在 `vite.config.js`  
+> Vite port (即 Docker 容器內部 port) 在 `vite.config.js` 設定  
 > Docker 外部 port 由 `.env` 的 `CONTAINER_PORT_APP_VITE` 參數指定
 
-以本專案的設定值而言，Vite 內外 port 均設為 58788，當在容器內執行 `npm run dev` 運行 Vite server 時，便可由主程式 (Port 58787) 訪問到 Port 58788 的 前端資源 
+以本專案的設定值而言，Vite 內外 port 均設為 58788，當在容器內執行 `npm run dev` 運行 Vite server 時，便可由主程式 (Port 58787) 訪問到 Port 58788 的 前端資源。
