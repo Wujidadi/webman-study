@@ -16,10 +16,14 @@ touch ./docker/{root,user}.zsh_history
 docker-compose up -d
 ```
 
+## 關於 License 的注意事項
+
+* 框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除
+
 ## `.env` 與設定的問題
 
-官方從 [1.1.2 版](https://github.com/walkor/webman/releases/tag/v1.1.2)起取消對直接從 `.env` 定義設定參數的作法 ([參考討論](https://www.workerman.net/q/7534))，但作者仍提出了[替代方案](https://www.workerman.net/q/7564)
-> 主要是增加了 `config/.env` 檔案，並在 `support/helpers.php` 中加入 `env` 輔助函數
+官方從 [1.1.2 版](https://github.com/walkor/webman/releases/tag/v1.1.2)起取消了直接在 `.env` 設定參數的作法 ([參考討論](https://www.workerman.net/q/7534))，但作者仍提出了[替代方案](https://www.workerman.net/q/7564)
+> 主要是增加了 `config/.env.php` 檔案，並在 `support/helpers.php` 中加入 `env` 輔助函數
 
 以下為替代方案相關檔案的範例：
 
@@ -73,6 +77,8 @@ return [
     ],
 ];
 ```
+
+> 須注意如此添加的 `env` 函數，係從 `config/.env.php` 取得設定值，而非 `.env`
 
 ## Vite `npm run dev` 問題
 
