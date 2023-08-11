@@ -5,8 +5,10 @@ PHP [Webman 框架](https://github.com/walkor/webman)學習與研究專案。
 ## Quick Start with Docker
 
 ```bash
-# 複製 .env.php 檔，並指定具體的專案參數
-cp .env.php.example.php .env.php
+# 複製環境設定檔，並指定必須的專案參數，尤其是 Docker 的 HOST_PROJECT_DIRECTORY
+cp .env.example .env
+
+# 複製專案設定檔，並指定必須的專案參數
 cp ./config/.env.php.example.php ./config/.env.php
 
 # 預先建立 Docker 主程式容器中的 Zsh 歷史紀錄檔（若不須保留 Zsh 歷史紀錄可忽略此步驟）
