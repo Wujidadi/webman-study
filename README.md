@@ -90,6 +90,11 @@ return [
 
 > 須注意如此添加的 `env` 函數，係從 `config/.env.php` 取得設定值，而非 `.env`
 
-## Vite `npm run dev` 問題
+## Vite
 
-由於沒有像 Laravel Mix 或 Laravel Vite 那樣整合，執行 `npm run dev` 有入口層級問題 (必須要從根目錄 `index.html` 進入)，暫時只能用 `npm run build`，無法享受 Vite 的 hot reload。
+整合了 [Laravel Vite](https://www.npmjs.com/package/laravel-vite-plugin)；若使用 Docker 容器，須將 Vite port 暴露出來，且設定內外一致的 port，即可由主程式 port 訪問 Vite 編譯後的前端資源
+
+> Vite port (即 Docker 容器內部 port) 設定在 `vite.config.js`  
+> Docker 外部 port 由 `.env` 的 `CONTAINER_PORT_APP_VITE` 參數指定
+
+以本專案的設定值而言，Vite 內外 port 均設為 58788，當在容器內執行 `npm run dev` 運行 Vite server 時，便可由主程式 (Port 58787) 訪問到 Port 58788 的 前端資源 
