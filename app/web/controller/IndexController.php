@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controller\Web;
+namespace app\web\controller;
 
 use support\Request;
 use support\Response;
