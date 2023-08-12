@@ -24,11 +24,12 @@
     "source": "https://github.com/walkor/webman"
   },
   "require": {
-    "ext-http": "*",
     "php": ">=8.2",
-    "workerman/webman-framework": "^1.5.8",
+    "ext-http": "*",
+    "friendsofphp/php-cs-fixer": "^3.22",
     "monolog/monolog": "^2.9.1",
-    "webman/console": "^1.2"
+    "webman/console": "^1.2",
+    "workerman/webman-framework": "^1.5.8"
   },
   "suggest": {
     "ext-event": "For better performance. "
