@@ -30,6 +30,10 @@ docker-compose up -d
 
 框架中有[原作者](https://github.com/walkor)的 MIT License 標記 (`LICENCE`)，用來開發自己的專案時記得修改或移除。
 
+### composer.json
+
+`composer.json` 中也有原作者 Webman 本身的相關訊息，發布自己的專案時也要記得修改或適當處理。
+
 ### 時區
 
 可在 `config/app.php` 的 `default_timezone` 修改。
